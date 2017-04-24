@@ -1,0 +1,20 @@
+{
+  "name": "ahuizotl",
+  "version": "1.0.0",
+  "description": "JavaScript Application",
+  "main": "index.html",
+  "scripts": {
+    "test": "app.js"
+  },
+  "author": "Team Ahuizotl",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "handlebars": "^4.0.6",
+    "http-server": "^0.9.0",
+    "jquery": "^3.2.1",
+    "sammy": "^0.7.6",
+    "systemjs": "^0.20.12",
+    "systemjs-plugin-babel": "0.0.21"
+  }
+}
