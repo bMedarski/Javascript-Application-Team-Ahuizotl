@@ -5,9 +5,8 @@ const Template = (function () {
         get(name) {
             if (window.sessionStorage[name]) {
                 return new Promise((resolve, reject) => {
-                    var cacheTemplate = window.sessionStorage[name];
+                    let cacheTemplate = window.sessionStorage[name];
                     resolve(cacheTemplate);
-
                 })
 
             } else {
@@ -20,10 +19,10 @@ const Template = (function () {
                         }
                     })
                 })
-                    //.then((html) => {
-                    //    window.sessionStorage[name] = html;
-                    //    return html;
-                    //})
+                    .then((html) => {
+                        window.sessionStorage[name] = html;
+                        return html;
+                    })
             }
         }
     }

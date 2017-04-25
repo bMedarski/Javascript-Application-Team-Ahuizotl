@@ -1,3 +1,10 @@
+body{
+    background: url("../images/3.jpg") no-repeat;
+    background-size: cover;
+}
+#main{
+    margin-top: 100px;
+}
 .team-logo{
     width: 20px;
     height: 20px;
@@ -5,5 +12,17 @@
 }
 ul{
     list-style-type: none;
+}
+.btn-default{
+    width: 300px;
+    text-align: left;
+    opacity: 0.90;
+}
+.navbar{
+    opacity: 0.8;
+}
+.caret{
+    float: right;
+    margin-top: 8px;
 }
 

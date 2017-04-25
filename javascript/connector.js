@@ -1,11 +1,11 @@
 const Connection = (function () {
     class Connection {
         constructor() {}
-        get() {
+        get(url) {
             let promise = new Promise(function(resolve, reject){
                 $.ajax({
                     headers: { 'X-Auth-Token': 'ba2ca6f1811849d690a248353d63f1ca' },
-                    url: 'http://api.football-data.org/v1/competitions/398/teams',
+                    url: url,
                     dataType: 'json',
                     type: 'GET',
                     success:function(connection){
