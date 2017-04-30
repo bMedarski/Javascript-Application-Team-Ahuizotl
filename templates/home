@@ -1,0 +1,28 @@
+
+<table class="table table-striped">
+    <thead class="thead-default">
+    <tr class="fixture">
+        <th>League</th>
+        <th>Date</th>
+        <th class="align-right">Home</th>
+        <th class="align-left">Away</th>
+        <th>Result</th>
+    </tr>
+    </thead>
+    <tbody>
+        {{#fixtures}}
+            <tr class="fixture">
+                <td><a href="#/competition/{{competitionId}}">{{competitionName}}</a></td>
+                <td><a href="">{{date}}</a></td>
+                <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
+                <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>
+                <td><a href=""> {{#if displayResult}}
+                    {{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}
+                {{else}}
+                    ?:?
+                {{/if}}</a>
+                </td>
+            </tr>
+        {{/fixtures}}
+    </tbody>
+</table>

@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-sm-4 col-md-4" >
+        <div class="list-group">
+            <button type="button" class="list-group-item"><a href="#">Team name</a></button>
+            {{#teams}}
+                <button type="button" class="list-group-item"><img src="{{crestUrl}}" class="team-logo" alt="img"/><a href="#">{{name}}</a></button>
+            {{/teams}}
+        </div>
+    </div>
+</div>

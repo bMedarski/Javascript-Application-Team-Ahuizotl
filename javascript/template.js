@@ -8,21 +8,17 @@ const Template = (function () {
                     let cacheTemplate = window.sessionStorage[name];
                     resolve(cacheTemplate);
                 })
-
             } else {
                 return new Promise((resolve, reject) => {
                     $.ajax({
-                        url: `templates/${name}.handlebars`,
+                        url: `templates/${name}`,
                         method: 'GET',
                         success:function(html){
+                            window.sessionStorage[name] = html;
                             resolve(html);
                         }
                     })
                 })
-                    .then((html) => {
-                        window.sessionStorage[name] = html;
-                        return html;
-                    })
             }
         }
     }

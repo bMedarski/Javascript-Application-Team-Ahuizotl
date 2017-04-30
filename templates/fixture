@@ -1,0 +1,5 @@
+{{#fixtures}}
+    <div class="fixture">{{date}}</div>
+    <div class="fixture"><span>Home{{homeTeamName}}</span><span>Away{{awayTeamName}}</span></div>
+    <div class="fixture">{{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}</div>
+{{/fixtures}}

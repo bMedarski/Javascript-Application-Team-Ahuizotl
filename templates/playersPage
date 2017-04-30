@@ -1,0 +1,38 @@
+<div class="row content">
+    <div class="col-sm-12">
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" src="{{img}}" alt="no-image">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{name}}</h4>
+            </div>
+            <ul class="nav nav-tabs nav-justified" id="team-main">
+                <li role="presentation"><a href="#/teamPage/{{id}}">Fixtures</a></li>
+                <li role="presentation"><a href="#/teamPlayers/{{id}}" class="active">Players</a></li>
+            </ul>
+        </div>
+        <table class="table table-striped" id="table">
+            <thead class="thead-default">
+            <tr class="fixture">
+                <th>Jersey number </th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Nationality</th>
+                <th>Date of Birth</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#players}}
+                <tr class="fixture">
+                    <td>{{jerseyNumber}}</td>
+                    <td>{{name}}</td>
+                    <td>{{position}}</td>
+                    <td>{{nationality}}</td>
+                    <td>{{dateOfBirth}}</td>
+                </tr>
+            {{/players}}
+            </tbody>
+        </table>
+    </div>
+</div>

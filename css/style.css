@@ -1,5 +1,8 @@
 body{
-    background: url("../images/3.jpg") no-repeat;
+    background: url("../images/3.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 #main{
@@ -25,4 +28,76 @@ ul{
     float: right;
     margin-top: 8px;
 }
+.dropdown-menu{
+    top: 0;
+    left: 300px;
+    opacity: 0.90;
+}
+.list-group-item{
+    height: 40px;
+    font-size: 12px;
+    opacity: 0.90;
+    padding: 8px;
+    width: 350px;
 
+}
+.list-group-item a{
+    color: black;
+    font-weight: bold;
+    width: 350px;
+}
+button.list-group-item {
+    width: 100%;
+}
+.list-group{
+    width: 250px;
+}
+.fixture{
+    opacity: 0.95;
+    background-color: #ffffff;
+}
+.align-right{
+    text-align: right;
+}
+.align-left{
+    text-align: left;
+}
+
+th{
+    background-color: #888888;
+}
+.heading{
+    text-align: center;
+    color: #ffffff;
+    font-size: 45px;
+}
+.media{
+    opacity: 0.95;
+    background-color: #ffffff;
+}
+ .media-object{
+    width: 125px;
+    height: 125px;
+     padding: 20px;
+}
+.media-heading{
+    text-align: center;
+    font-size: 75px;
+    line-height: 75px;
+    padding: 20px;
+}
+.media-body{
+    margin-bottom: 20px;
+}
+.active{
+    background-color: darkgray;
+    color: #ffffff;
+}
+#team-main a:hover{
+    cursor: pointer;
+    background-color: darkgray;
+    color: #ffffff;
+}
+.nav .nav-tabs .nav-justified{
+    border-bottom: 2px solid darkgray;
+}

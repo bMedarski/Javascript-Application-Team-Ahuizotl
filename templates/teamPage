@@ -1,0 +1,43 @@
+    <div class="row content">
+        <div class="col-sm-12">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" src="{{team.img}}" alt="no-image">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{team.name}}</h4>
+                </div>
+                <ul class="nav nav-tabs nav-justified" id="team-main">
+                    <li role="presentation"><a href="#/teamPage/{{team.id}}" class="active">Fixtures</a></li>
+                    <li role="presentation"><a href="#/teamPlayers/{{team.id}}">Players</a></li>
+                </ul>
+            </div>
+            <table class="table table-striped" id="table">
+                <thead class="thead-default">
+                <tr class="fixture">
+                    <th>League</th>
+                    <th>Date</th>
+                    <th class="align-right">Home team</th>
+                    <th class="align-left">Away team</th>
+                    <th>Result</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#team.fixtures}}
+                    <tr class="fixture">
+                        <td><a href="#/competitions/{{competitionId}}">{{competitionName}}</a></td>
+                        <td><a href="#">{{date}}</a></td>
+                        <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
+                        <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>
+                        <td><a href="#"> {{#if displayResult}}
+                            {{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}
+                        {{else}}
+                            ?:?
+                        {{/if}}</a>
+                        </td>
+                    </tr>
+                {{/team.fixtures}}
+                </tbody>
+            </table>
+        </div>
+    </div>
