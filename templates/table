@@ -1,1 +1,45 @@
-<h1>{{leagueCaption}}</h1>
+<div class="row content">
+    <div class="col-sm-12">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading">{{leagueCaption}}</h4>
+            </div>
+            <ul class="nav nav-tabs nav-justified" id="team-main">
+                <li role="presentation"><a href="#/competition/{{id}}">Fixtures</a></li>
+                <li role="presentation"><a href="#/competitionTable/{{id}}" class="active">League table</a></li>
+            </ul>
+        </div>
+        <table class="table table-striped" id="table">
+            <thead class="thead-default">
+            <tr class="fixture">
+                <th>Club</th>
+                <th>Position</th>
+                <th>Played games</th>
+                <th>Wins</th>
+                <th>Draws</th>
+                <th>Loses</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>Difference</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#standing}}
+                <tr class="fixture">
+                    <td><img src="{{crestURI}}" alt="img" class="team-logo"/><a href="#/teamPage/{{teamId}}">{{teamName}}</a></td>
+                    <td>{{position}}</td>
+                    <td>{{playedGames}}</td>
+                    <td>{{wins}}</td>
+                    <td>{{draws}}</td>
+                    <td>{{losses}}</td>
+                    <td>{{goals}}</td>
+                    <td>{{goalsAgainst}}</td>
+                    <td>{{goalDifference}}</td>
+                    <td>{{points}}</td>
+                </tr>
+            {{/standing}}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -2,10 +2,15 @@ export class Data {
     constructor() {
     }
     static getID(link){
-        let id = link.substring(link.length-2);
         const regex = /\d+$/g;
         let m = regex.exec(link);
         return m[0];
+    }
+    static formatTeamID(array){
+        array.forEach(function(fixture){
+
+            fixture.teamId = Data.getID(fixture._links.team.href);
+        });
     }
     static formatCompetitionID(array){
         const competitions ={

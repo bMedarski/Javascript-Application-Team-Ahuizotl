@@ -25,7 +25,7 @@
                 <tbody>
                 {{#team.fixtures}}
                     <tr class="fixture">
-                        <td><a href="#/competitions/{{competitionId}}">{{competitionName}}</a></td>
+                        <td><a href="#/competition/{{competitionId}}">{{competitionName}}</a></td>
                         <td><a href="#">{{date}}</a></td>
                         <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
                         <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>

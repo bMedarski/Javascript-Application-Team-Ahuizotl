@@ -1,13 +1,40 @@
-{{#competitions}}
-<div class="dropdown buttons">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        {{caption}}
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="#">Teams</a></li>
-        <li><a href="#">League Table</a></li>
-        <li><a href="#">Fixtures</a></li>
-    </ul>
+<div class="row content">
+    <div class="col-sm-12">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading">{{name}}</h4>
+            </div>
+            <ul class="nav nav-tabs nav-justified" id="team-main">
+                <li role="presentation"><a href="#/competition/{{id}}" class="active">Fixtures</a></li>
+                <li role="presentation"><a href="#/competitionTable/{{id}}" >League table</a></li>
+            </ul>
+        </div>
+        <table class="table table-striped" id="table">
+            <thead class="thead-default">
+            <tr class="fixture">
+                <th>League</th>
+                <th>Date</th>
+                <th class="align-right">Home team</th>
+                <th class="align-left">Away team</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#fixtures}}
+                <tr class="fixture">
+                    <td><a href="#/competitions/{{competitionId}}">{{competitionName}}</a></td>
+                    <td><a href="#">{{date}}</a></td>
+                    <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
+                    <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>
+                    <td><a href="#"> {{#if displayResult}}
+                        {{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}
+                    {{else}}
+                        ?:?
+                    {{/if}}</a>
+                    </td>
+                </tr>
+            {{/fixtures}}
+            </tbody>
+        </table>
+    </div>
 </div>
-{{/competitions}}

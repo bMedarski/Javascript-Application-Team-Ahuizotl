@@ -14,7 +14,7 @@ var app = Sammy('#main', function(){
                 fixtures = res.fixtures;
                 Date.formatArray(fixtures);
                 Data.formatCompetitionID(fixtures);
-                console.log(fixtures);
+                //console.log(fixtures);
                 return template.get('home');
             })
             .then(function(html){
@@ -23,29 +23,29 @@ var app = Sammy('#main', function(){
                 $('#main').html(template(fixtures));
             })
     });
-    this.get('#/teams/:id', function () {
-        let id = this.params['id'];
-        //console.log(id);
-        const connection = new Connection();
-        const template = new Template();
-        const url = `http://api.football-data.org/v1/competitions/${id}/teams`;
-        let teams;
-
-        connection.get(url)
-            .then(function (res) {
-                teams = res.teams;
-
-                return template.get('teams');
-            })
-            .then(function(html){
-
-                teams = {teams:teams};
-                //console.log(teams);
-                let template = Handlebars.compile(html);
-
-                $('#main').html(template(teams));
-            })
-    });
+    //this.get('#/competitionTeams/:id', function () {
+    //    let id = this.params['id'];
+    //    //console.log(id);
+    //    const connection = new Connection();
+    //    const template = new Template();
+    //    const url = `http://api.football-data.org/v1/competitions/${id}/teams`;
+    //    let teams;
+    //
+    //    connection.get(url)
+    //        .then(function (res) {
+    //            //teams = res.teams;
+    //            console.log(res);
+    //            return template.get('teams');
+    //        })
+    //        .then(function(html){
+    //
+    //            teams = {teams:teams};
+    //            //console.log(teams);
+    //            let template = Handlebars.compile(html);
+    //
+    //            $('#main').html(template(teams));
+    //        })
+    //});
     this.get(`#/teamPage/:id`, function () {
         let id = this.params['id'];
         const connection = new Connection();
@@ -102,7 +102,7 @@ var app = Sammy('#main', function(){
                 team.id = id;
                 team.name = name;
                 team.img = img;
-               console.log(team);
+               //console.log(team);
                 Date.formatPlayersDate(team.players);
                 return template.get('playersPage');
             })
@@ -113,50 +113,45 @@ var app = Sammy('#main', function(){
                 $('#main').html(template(team));
             })
     });
-    this.get('#/fixtures/:id', function () {
+    //this.get('#/fixtures/:id', function () {
+    //    let id = this.params['id'];
+    //    const connection = new Connection();
+    //    const template = new Template();
+    //    const url = `http://api.football-data.org/v1/competitions/${id}/fixtures?matchday=20`;
+    //    let fixtures;
+    //    connection.get(url)
+    //        .then(function (res) {
+    //            fixtures = res.fixtures;
+    //            Date.formatArray(fixtures);
+    //            return template.get('fixture');
+    //        })
+    //        .then(function(html){
+    //
+    //            fixtures = {fixtures:fixtures};
+    //            let template = Handlebars.compile(html);
+    //
+    //            $('#main').html(template(fixtures));
+    //        })
+    //});
+    this.get('#/competitionTable/:id', function () {
         let id = this.params['id'];
-        //console.log(id);
         const connection = new Connection();
         const template = new Template();
-        const url = `http://api.football-data.org/v1/competitions/${id}/fixtures?matchday=20`;
-        let fixtures;
-        connection.get(url)
-            .then(function (res) {
+        const url = `http://api.football-data.org/v1/competitions/${id}/leagueTable`;
+        let table,
+            teamId;
 
-                fixtures = res.fixtures;
-                //console.log(fixtures);
-                Date.formatArray(fixtures);
-                //console.log(fixtures);
-                //console.log(fixtures[0].date);
-                return template.get('fixture');
-            })
-            .then(function(html){
-
-                fixtures = {fixtures:fixtures};
-                let template = Handlebars.compile(html);
-
-                $('#main').html(template(fixtures));
-            })
-    });
-    this.get('#/leagueTable/:id', function () {
-        let id = this.params['id'];
-        //console.log(id);
-        const connection = new Connection();
-        const template = new Template();
-        const url = `http://api.football-data.org/v1/competitions/${id}/leagueTable?matchday=20`;
-        let table;
         connection.get(url)
             .then(function (res) {
                 table = res;
+                table.id = id;
                 //console.log(table);
+                Data.formatTeamID(table.standing);
+
                 return template.get('table');
             })
             .then(function(html){
-
-                table = {table:table};
-                //console.log(table);
                 let template = Handlebars.compile(html);
-
                 $('#main').html(template(table));
             })
     });
@@ -164,18 +159,29 @@ var app = Sammy('#main', function(){
         let id = this.params['id'];
         const connection = new Connection();
         const template = new Template();
-        let url = `http://api.football-data.org/v1/competitions/${id}`;
+        let url = `http://api.football-data.org/v1/competitions/${id}/fixtures`;
+        let urlCompetition = `http://api.football-data.org/v1/competitions/${id}`;
         let competitions;
+        let name= '';
+        connection.get(urlCompetition)
+            .then(function (res) {
+                //console.log(res);
+                name = res.caption;
+            });
         connection.get(url)
             .then(function (res) {
 
                 competitions = res;
-                console.log(res);
-                return template.get(`competitions-2016`);
+                competitions.name = name;
+                competitions.id = id;
+                Date.formatArray(competitions.fixtures);
+                Data.formatCompetitionID(competitions.fixtures);
+                //console.log(competitions)
+                return template.get(`competitions`);
             })
             .then(function(html){
 
-                competitions = {competitions:competitions};
+                //competitions = {fixtures:competitions};
                 //console.log(competitions);
                 let template = Handlebars.compile(html);
 
