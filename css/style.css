@@ -55,6 +55,13 @@ button.list-group-item {
 .fixture{
     opacity: 0.95;
     background-color: #ffffff;
+    color: rgb(202, 51, 73);
+}
+.fixture a{
+    color: rgb(202, 51, 73);
+}
+.fixture th{
+    color: black;
 }
 .align-right{
     text-align: right;
@@ -89,6 +96,11 @@ th{
 .media-body{
     margin-bottom: 20px;
 }
+.media a{
+    color: black;
+    font-weight: bold;
+}
+
 .active{
     background-color: darkgray;
     color: #ffffff;

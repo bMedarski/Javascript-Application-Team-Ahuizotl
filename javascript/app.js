@@ -1,12 +1,12 @@
 import {Connection} from 'javascript/connector.js';
 import {Template} from 'javascript/template.js';
 import {Date} from 'javascript/date.js';
-import {Data} from 'javascript/competitionData.js';
+import {Data} from 'javascript/data-formater';
 
 var app = Sammy('#main', function(){
+    const connection = new Connection();
+    const template = new Template();
     this.get('#/', function () {
-        const connection = new Connection();
-        const template = new Template();
         const url = `http://api.football-data.org/v1/fixtures/?timeFrame=n30`;
         let fixtures;
         connection.get(url)
@@ -23,33 +23,8 @@ var app = Sammy('#main', function(){
                 $('#main').html(template(fixtures));
             })
     });
-    //this.get('#/competitionTeams/:id', function () {
-    //    let id = this.params['id'];
-    //    //console.log(id);
-    //    const connection = new Connection();
-    //    const template = new Template();
-    //    const url = `http://api.football-data.org/v1/competitions/${id}/teams`;
-    //    let teams;
-    //
-    //    connection.get(url)
-    //        .then(function (res) {
-    //            //teams = res.teams;
-    //            console.log(res);
-    //            return template.get('teams');
-    //        })
-    //        .then(function(html){
-    //
-    //            teams = {teams:teams};
-    //            //console.log(teams);
-    //            let template = Handlebars.compile(html);
-    //
-    //            $('#main').html(template(teams));
-    //        })
-    //});
     this.get(`#/teamPage/:id`, function () {
         let id = this.params['id'];
-        const connection = new Connection();
-        const template = new Template();
         const url = `http://api.football-data.org/v1/teams/${id}/fixtures`;
         const teamUrl = `http://api.football-data.org/v1/teams/${id}`;
         let team;
@@ -68,8 +43,6 @@ var app = Sammy('#main', function(){
                 team.name = name;
                 team.img = img;
                 //console.log(team);
-                //team.name = res.fixtures[0].homeTeamName;
-
                 Date.formatArray(team.fixtures);
                 Data.formatCompetitionID(team.fixtures);
                 return template.get('teamPage');
@@ -83,8 +56,6 @@ var app = Sammy('#main', function(){
     });
     this.get(`#/teamPlayers/:id`, function () {
         let id = this.params['id'];
-        const connection = new Connection();
-        const template = new Template();
         const url = `http://api.football-data.org/v1/teams/${id}/players`;
         const teamUrl = `http://api.football-data.org/v1/teams/${id}`;
         let team;
@@ -113,30 +84,27 @@ var app = Sammy('#main', function(){
                 $('#main').html(template(team));
             })
     });
-    //this.get('#/fixtures/:id', function () {
-    //    let id = this.params['id'];
-    //    const connection = new Connection();
-    //    const template = new Template();
-    //    const url = `http://api.football-data.org/v1/competitions/${id}/fixtures?matchday=20`;
-    //    let fixtures;
-    //    connection.get(url)
-    //        .then(function (res) {
-    //            fixtures = res.fixtures;
-    //            Date.formatArray(fixtures);
-    //            return template.get('fixture');
-    //        })
-    //        .then(function(html){
-    //
-    //            fixtures = {fixtures:fixtures};
-    //            let template = Handlebars.compile(html);
-    //
-    //            $('#main').html(template(fixtures));
-    //        })
-    //});
+    this.get('#/fixture/:id', function () {
+        let id = this.params['id'];
+        const url = `http://api.football-data.org/v1/fixtures/${id}`;
+        let fixture;
+        connection.get(url)
+            .then(function (res) {
+                console.log(res);
+                fixture = res;
+                Date.formatFixtureDate(fixture.fixture);
+                Data.formatFixtureID(fixture);
+                Date.formatArray(fixture.head2head.fixtures);
+                Data.formatCompetitionID(fixture.head2head.fixtures);
+                return template.get('fixture');
+            })
+            .then(function(html){
+                let template = Handlebars.compile(html);
+                $('#main').html(template(fixture));
+            })
+    });
     this.get('#/competitionTable/:id', function () {
         let id = this.params['id'];
-        const connection = new Connection();
-        const template = new Template();
         const url = `http://api.football-data.org/v1/competitions/${id}/leagueTable`;
         let table,
             teamId;
@@ -145,10 +113,9 @@ var app = Sammy('#main', function(){
             .then(function (res) {
                 table = res;
                 table.id = id;
-                //console.log(table);
                 Data.formatTeamID(table.standing);
 
-                return template.get('table');
+                return template.get('tableCompetition');
             })
             .then(function(html){
                 let template = Handlebars.compile(html);
@@ -157,20 +124,18 @@ var app = Sammy('#main', function(){
     });
     this.get('#/competition/:id', function () {
         let id = this.params['id'];
-        const connection = new Connection();
-        const template = new Template();
         let url = `http://api.football-data.org/v1/competitions/${id}/fixtures`;
         let urlCompetition = `http://api.football-data.org/v1/competitions/${id}`;
         let competitions;
         let name= '';
         connection.get(urlCompetition)
             .then(function (res) {
-                //console.log(res);
+
                 name = res.caption;
             });
         connection.get(url)
             .then(function (res) {
-
+                console.log(res);
                 competitions = res;
                 competitions.name = name;
                 competitions.id = id;

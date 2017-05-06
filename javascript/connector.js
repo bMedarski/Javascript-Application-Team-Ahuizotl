@@ -4,7 +4,7 @@ const Connection = (function () {
         get(url) {
             let promise = new Promise(function(resolve, reject){
                 $.ajax({
-                    headers: { 'X-Auth-Token': 'ba2ca6f1811849d690a248353d63f1ca' },
+                    headers: { 'X-Auth-Token': 'd31ecf09ca784f769c1be2a8ddd2f28e' },
                     url: url,
                     dataType: 'json',
                     type: 'GET',

@@ -1,5 +1,63 @@
-{{#fixtures}}
-    <div class="fixture">{{date}}</div>
-    <div class="fixture"><span>Home{{homeTeamName}}</span><span>Away{{awayTeamName}}</span></div>
-    <div class="fixture">{{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}</div>
-{{/fixtures}}
+<div class="row content">
+    <div class="col-sm-12">
+        <div class="media">
+            <div class="media-body">
+                <p class="media-heading">{{fixture.homeTeamName}} vs {{fixture.awayTeamName}}</p>
+            </div>
+        </div>
+        <table class="table table-striped" id="table">
+            <thead class="thead-default">
+            <tr class="fixture">
+                <th>League</th>
+                <th>Date</th>
+                <th>Match day</th>
+                <th class="align-right">Home team</th>
+                <th class="align-left">Away team</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="fixture">
+                    <td><a href="#/competition/{{competitionId}}">{{competitionName}}</a></td>
+                    <td>{{fixture.date}}</td>
+                    <td>{{fixture.matchday}}</td>
+                    <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{fixture.homeTeamName}}</a></td>
+                    <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{fixture.awayTeamName}}</a></td>
+                    <td>{{#if displayResult}}
+                        {{fixture.result.goalsHomeTeam}}:{{fixture.result.goalsAwayTeam}}
+                    {{else}}
+                        ?:?
+                    {{/if}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <thead class="thead-default">
+            <tr class="fixture">
+                <th>League</th>
+                <th>Date</th>
+                <th>Match day</th>
+                <th class="align-right">Home team</th>
+                <th class="align-left">Away team</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#head2head.fixtures}}
+                <tr class="fixture">
+                    <td><a href="#/competition/{{competitionId}}">{{competitionName}}</a></td>
+                    <td>{{date}}</td>
+                    <td>{{matchday}}</td>
+                    <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
+                    <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>
+                    <td>
+                        {{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}
+                    </td>
+                </tr>
+            {{/head2head.fixtures}}
+
+            </tbody>
+        </table>
+    </div>
+</div>

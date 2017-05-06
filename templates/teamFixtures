@@ -2,10 +2,10 @@
 {{#team.fixtures}}
     <tr class="fixture">
         <td><a href="">{{competitionName}}</a></td>
-        <td><a href="">{{date}}</a></td>
+        <td><{{date}}</td>
         <td class="align-right"><a href="#/teamPage/{{homeTeamId}}">{{homeTeamName}}</a></td>
         <td class="align-left"><a href="#/teamPage/{{awayTeamId}}">{{awayTeamName}}</a></td>
-        <td><a href=""> {{#if displayResult}}
+        <td><a href="#/fixture/{{gameId}}"> {{#if displayResult}}
             {{result.goalsHomeTeam}}:{{result.goalsAwayTeam}}
         {{else}}
             ?:?

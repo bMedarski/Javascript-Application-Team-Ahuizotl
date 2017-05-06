@@ -2,11 +2,9 @@ export class Date {
         constructor() {
         }
         static formatArray(arrayDates) {
-            //console.log(arrayDates);
             arrayDates.forEach(function(date){
                 date.date =  moment(date.date).format('DD MMM YYYY');
             });
-            //console.log(arrayDates);
             return arrayDates;
         }
         static formatPlayersDate(arrayDates){
@@ -16,5 +14,7 @@ export class Date {
             });
             return arrayDates;
         }
-
+        static formatFixtureDate(fixture){
+            fixture.date =  moment(fixture.date).format('DD MMM YYYY');
+        }
 }
