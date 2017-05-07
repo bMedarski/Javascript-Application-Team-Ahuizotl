@@ -11,36 +11,41 @@ var dataStore = Kinvey.DataStore.collection('FollowedTeams');
 
 const UsersManager =  {
         register: function(username, password) {
-            var user = new Kinvey.User();
-            var promise = user.signup({
-                username: username,
-                password: password
-            }).then(function onSuccess(user) {
-                localStorage.setItem('username', username);
-            }).catch(function onError(error) {
-                //...
-            }); 
+            UsersManager.logout(function(){
+                var user = new Kinvey.User();
+                var promise = user.signup({
+                    username: username,
+                    password: password
+                }).then(function onSuccess(user) {
+                    localStorage.setItem('username', username);
+                }).catch(function onError(error) {
+                });
+            });
+ 
         },
 
-        login: function(username, password) {
-            var user = new Kinvey.User();
-            var promise = user.login({
-                username: username,
-                password: password
-            }).then(function onSuccess(user) {
-                localStorage.setItem('username', username);
-                //console.log(localStorage.getItem('username'));
-            }).catch(function onError(error) {
-                //...
-            }); 
+        login: function(username, password, successCallback, failCallback) {
+            UsersManager.logout(function(){
+                var user = new Kinvey.User();
+                var promise = user.login({
+                    username: username,
+                    password: password
+                }).then(function onSuccess(user) {
+                    localStorage.setItem('username', username);
+                    successCallback();
+                }).catch(function onError(error) {
+                    failCallback();
+                }); 
+            });
         },
 
-        logout: function(username, password) {
+        logout: function(callback) {
             var promise = Kinvey.User.logout();
             promsie = promise.then(function onSuccess() {
                 localStorage.setItem('username', null);
-            }).catch(function onError(error) {
-                // ...
+                callback();
+            }).catch(function onError(error) {                
+                callback();
             });
         },
 
