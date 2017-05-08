@@ -1,1 +1,0 @@
-# Javascript-Application-Team-Ahuizotl
