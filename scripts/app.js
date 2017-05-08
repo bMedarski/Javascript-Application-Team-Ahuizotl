@@ -72,7 +72,7 @@ var app = Sammy('#main', function(){
                 team.id = id;
                 team.name = name;
                 team.img = img;
-               //console.log(team);
+                //console.log(team);
                 dateParser.formatPlayersDate(team.players);
                 return templateLoader.get('playersPage');
             })
@@ -154,11 +154,11 @@ var app = Sammy('#main', function(){
     });
     this.get('#/register', function () {
         templateLoader.get(`register`)
-        .then(function(html){
-            let template = Handlebars.compile(html);
+            .then(function(html){
+                let template = Handlebars.compile(html);
 
-            $('#main').html(template());
-        })
+                $('#main').html(template());
+            })
     });
     this.get('#/login', function() {
         templateLoader.get(`login`)

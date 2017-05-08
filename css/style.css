@@ -82,10 +82,10 @@ th{
     opacity: 0.95;
     background-color: #ffffff;
 }
- .media-object{
+.media-object{
     width: 125px;
     height: 125px;
-     padding: 20px;
+    padding: 20px;
 }
 .media-heading{
     text-align: center;
