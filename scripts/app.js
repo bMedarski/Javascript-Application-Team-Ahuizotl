@@ -2,6 +2,8 @@ import {connect} from 'connector';
 import {templateLoader} from 'template';
 import {dateParser} from 'date';
 import {dataParser} from 'data';
+import {userManager} from 'user-manager';
+
 var app = Sammy('#main', function(){
     this.get('#/'||''||'/', function () {
         const url = `http://api.football-data.org/v1/fixtures/?timeFrame=n30`;
@@ -150,6 +152,82 @@ var app = Sammy('#main', function(){
                 $('#main').html(template(competitions));
             })
     });
+    this.get('#/register', function () {
+        templateLoader.get(`register`)
+        .then(function(html){
+            let template = Handlebars.compile(html);
+
+            $('#main').html(template());
+        })
+    });
+    this.get('#/login', function() {
+        templateLoader.get(`login`)
+            .then(function(html){
+                let template = Handlebars.compile(html);
+
+                $('#main').html(template());
+            })
+    });
+    this.post('#/register', function () {
+        let username = this.params.username;
+        let password = this.params.password;
+        let repeatPassword = this.params.repeatPassword;
+        userManager.register(
+            username,
+            password,
+            repeatPassword,
+            function() {
+                $('#login').addClass('hidden');
+                $('#register').addClass('hidden');
+                $('#logout').removeClass('hidden');
+                $('#user').removeClass('hidden');
+                $('#userInfo').html(username);
+                window.location = '#/';
+            },
+            function () {
+                console.log('wrong reg');
+            }
+        );
+    });
+    this.post('#/login', function() {
+        let username = this.params.username;
+        let password = this.params.password;
+
+        userManager.login(
+            username,
+            password,
+            function(){
+                $('#login').addClass('hidden');
+                $('#register').addClass('hidden');
+                $('#logout').removeClass('hidden');
+                $('#user').removeClass('hidden');
+                $('#userInfo').html(username);
+                window.location = '#/';
+            },
+            function (){
+                console.log('wrong log');
+            });
+    });
+    this.get('#/logout', function() {
+
+        userManager.logout(
+
+            function(){
+                $('#login').removeClass('hidden');
+                $('#register').removeClass('hidden');
+                $('#logout').addClass('hidden');
+                $('#user').addClass('hidden');
+                $('#userInfo').html();
+                window.location = '#/';
+            })
+    });
+    this.get('#/username', function() {
+
+        userManager.getFollowedTeams(function(teams){
+            console.log(teams);
+            console.log('user menu')
+        })
+    })
 });
 $(function () {
     app.run('#/');
