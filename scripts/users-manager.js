@@ -10,7 +10,7 @@ Kinvey.initialize({
 var dataStore = Kinvey.DataStore.collection('FollowedTeams');
 
 const UsersManager =  {
-        register: function(username, password) {
+        register: function(username, password, successCallback, failCallback) {
             UsersManager.logout(function(){
                 var user = new Kinvey.User();
                 var promise = user.signup({
@@ -18,7 +18,9 @@ const UsersManager =  {
                     password: password
                 }).then(function onSuccess(user) {
                     localStorage.setItem('username', username);
+                    successCallback();
                 }).catch(function onError(error) {
+                    failCallback();
                 });
             });
  
