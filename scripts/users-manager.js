@@ -71,10 +71,13 @@ class UsersManager{
         var entities = [];
         stream.subscribe(function onNext(e) {
             entities = e;
+            console.log(entities);
         }, function onError(error) {
             // ...
         }, function onComplete() {
             try {
+
+                console.log('success');
                 callback(entities[0].teams);
             }
             catch(e) {
@@ -93,7 +96,7 @@ class UsersManager{
                         username: localStorage.getItem('username'),
                         teams: teamsArray
                     }).then(function onSuccess(entity) {
-                        //console.log('team followed SUCC')
+                        console.log('team followed SUCC')
                     }).catch(function onError(error) {
                         //console.log('team followed FAILED')
                     });

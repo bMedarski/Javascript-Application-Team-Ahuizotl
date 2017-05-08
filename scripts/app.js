@@ -5,7 +5,7 @@ import {dataParser} from 'data';
 import {userManager} from 'user-manager';
 
 var app = Sammy('#main', function(){
-    this.get('#/'||''||'/', function () {
+    this.get('#/', function () {
         const url = `http://api.football-data.org/v1/fixtures/?timeFrame=n30`;
         let fixtures;
         connect.get(url)
@@ -34,6 +34,7 @@ var app = Sammy('#main', function(){
                 //console.log(res);
                 name = res.name;
                 img = res.crestUrl;
+                console.log(localStorage.getItem('username'))
             });
         connect.get(url)
             .then(function (res) {
@@ -89,7 +90,7 @@ var app = Sammy('#main', function(){
         let fixture;
         connect.get(url)
             .then(function (res) {
-                console.log(res);
+                //console.log(res);
                 fixture = res;
                 dateParser.formatFixtureDate(fixture.fixture);
                 dataParser.formatFixtureID(fixture);
@@ -134,7 +135,7 @@ var app = Sammy('#main', function(){
             });
         connect.get(url)
             .then(function (res) {
-                console.log(res);
+                //console.log(res);
                 competitions = res;
                 competitions.name = name;
                 competitions.id = id;
@@ -218,15 +219,24 @@ var app = Sammy('#main', function(){
                 $('#logout').addClass('hidden');
                 $('#user').addClass('hidden');
                 $('#userInfo').html();
-                window.location = '#/';
+                //window.location = '#/';
             })
     });
     this.get('#/username', function() {
 
         userManager.getFollowedTeams(function(teams){
             console.log(teams);
-            console.log('user menu')
         })
+    });
+    this.get('#/follow/', function(context) {
+        //console.log(context.params.id);
+        //console.log(context.params.name);
+        let team = {
+            id:context.params.id,
+            name:context.params.name
+        };
+        console.log(team);
+        userManager.followTeam(team);
     })
 });
 $(function () {

@@ -5,8 +5,8 @@
                 <h4 class="media-heading">{{name}}</h4>
             </div>
             <ul class="nav nav-tabs nav-justified" id="team-main">
-                <li role="presentation"><a href="#/competition/{{id}}" class="active">Fixtures</a></li>
-                <li role="presentation"><a href="#/competitionTable/{{id}}" >League table</a></li>
+                <li role="presentation"><a href="#/competition/{{id}}" class="active"><i class="fa fa-th-list" aria-hidden="true"></i> Fixtures</a></li>
+                <li role="presentation"><a href="#/competitionTable/{{id}}" ><i class="fa fa-table" aria-hidden="true"></i> League table</a></li>
             </ul>
         </div>
         <table class="table table-striped" id="table">

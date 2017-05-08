@@ -7,9 +7,12 @@
                 <div class="media-body">
                     <h4 class="media-heading">{{team.name}}</h4>
                 </div>
+                <div class="media-right">
+                    <a href="#/follow/?id={{team.id}}&name={{team.name}}" ><img class="follow-btn" src="./img/follow1.jpg" alt="follow"/></a>
+                </div>
                 <ul class="nav nav-tabs nav-justified" id="team-main">
-                    <li role="presentation"><a href="#/teamPage/{{team.id}}" class="active">Fixtures</a></li>
-                    <li role="presentation"><a href="#/teamPlayers/{{team.id}}">Players</a></li>
+                    <li role="presentation"><a href="#/teamPage/{{team.id}}" class="active"><i class="fa fa-th-list" aria-hidden="true"></i> Fixtures</a></li>
+                    <li role="presentation"><a href="#/teamPlayers/{{team.id}}"><i class="fa fa-users" aria-hidden="true"></i> Players</a></li>
                 </ul>
             </div>
             <table class="table table-striped" id="table">

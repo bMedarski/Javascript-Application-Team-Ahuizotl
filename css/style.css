@@ -185,4 +185,7 @@ th{
     text-decoration: underline;
     color: #666;
 }
-
+.follow-btn{
+    width: 175px;
+    height: 150px;
+}
