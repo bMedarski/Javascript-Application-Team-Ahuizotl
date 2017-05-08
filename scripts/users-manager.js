@@ -10,13 +10,15 @@ Kinvey.initialize({
 var dataStore = Kinvey.DataStore.collection('FollowedTeams');
 
 const UsersManager =  {
-    register: function(username, password, successCallback, failCallback) {
-        if (Validator.isValidUsername(username) && Validator.isValidPassword(password)) {
+    register: function(username, password1, password2, successCallback, failCallback) {
+        if (Validator.isValidUsername(username) && 
+                Validator.isValidPassword(password1) &&
+                Validator.stringsMatch(password1, password2)) {
             UsersManager.logout(function(){
                 var user = new Kinvey.User();
                 var promise = user.signup({
                     username: username,
-                    password: password
+                    password: password1
                 }).then(function onSuccess(user) {
                     localStorage.setItem('username', username);
                     successCallback();

@@ -76,5 +76,19 @@ const Validator =  {
         catch (e) {
             return false;
         }
+    },
+
+    stringsMatch: function(string1, string2) {
+        try{
+            if(string1 === string2) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch(e) {
+            return false;
+        }
     }
 } 
