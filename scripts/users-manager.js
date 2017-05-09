@@ -92,21 +92,23 @@ class UsersManager{
     };
 
     followTeam(team) {
-        userManager.getFollowedTeams(function(teamsArray) {
-            if(teamsArray.indexOf(team) < 0) {
-            userManager.unfollowAllTeams(function(){
-                teamsArray.push(team);
-                var promise = dataStore.save({
-                    username: localStorage.getItem('username'),
-                    teams: teamsArray
-                }).then(function onSuccess(entity) {
-                    //console.log('team followed SUCC')
-                }).catch(function onError(error) {
-                    //console.log('team followed FAILED')
-                });
-            });
-            }
-        });
+        userManager.checkIfTeamIsFollowed(
+                team, 
+                function(){},
+                function() {
+                    userManager.getFollowedTeams(function(teamsArray) {
+                        userManager.unfollowAllTeams(function(){
+                            teamsArray.push(team);
+                            var promise = dataStore.save({
+                                username: localStorage.getItem('username'),
+                                teams: teamsArray
+                            }).then(function onSuccess(entity) {
+                                //console.log('team followed SUCC')
+                            }).catch(function onError(error) {
+                                //console.log('team followed FAILED')
+                            });
+                        });
+                    })})
     };
 
     unfollowTeam(team) {
@@ -137,6 +139,24 @@ class UsersManager{
         }).catch(function onError(error) {
             // ...
         });
+    }
+
+    checkIfTeamIsFollowed(team, followedCallback, notFollowedCallback) {
+        userManager.getFollowedTeams(function(teams){
+            var isFollowed = false;
+            for (let i = 0; i < teams.length; i += 1) {
+                if (team.id == teams[i].id){
+                    isFollowed = true;
+                    break;
+                }
+            }
+            if (isFollowed) {
+                followedCallback();
+            } 
+            else {
+                notFollowedCallback();
+            }
+        })
     }
 }
 
