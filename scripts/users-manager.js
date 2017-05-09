@@ -111,7 +111,7 @@ class UsersManager{
                     })})
     };
 
-    unfollowTeam(team) {
+    unfollowTeam(team,callback) {
         userManager.getFollowedTeams(function(teamsArray) {
             var index = -1;
             for (var i = 0; i < teamsArray.length; i += 1) {
@@ -120,7 +120,6 @@ class UsersManager{
                     break;
                 }
             }
-
             if(index >= 0) {
                 userManager.unfollowAllTeams(function(){
                     teamsArray.splice(index, 1);
@@ -128,6 +127,7 @@ class UsersManager{
                         username: localStorage.getItem('username'),
                         teams: teamsArray
                     }).then(function onSuccess(entity) {
+                        callback();
                         //console.log('team unfollowed SUCC')
                     }).catch(function onError(error) {
                         //console.log('team unfollowed FAILED')

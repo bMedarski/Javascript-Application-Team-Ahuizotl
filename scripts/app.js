@@ -218,7 +218,7 @@ var app = Sammy('#main', function(){
                 $('#logout').addClass('hidden');
                 $('#user').addClass('hidden');
                 $('#userInfo').html();
-                //window.location = '#/';
+                window.location = '#/';
             })
     });
     this.get('#/username', function() {
@@ -246,9 +246,10 @@ var app = Sammy('#main', function(){
     });
     this.get('#/unfollow/:id', function() {
         let id = this.params['id'];
-        console.log({id:id});
-        userManager.unfollowTeam({id:id});
-        window.location = '#/username';
+
+        userManager.unfollowTeam({id:id},function(){
+            window.location = '#/username';
+        });
     })
 });
 $(function () {
