@@ -1,10 +1,16 @@
-<div class="row">
-    <div class="col-sm-4 col-md-4" >
-        <div class="list-group">
-            <button type="button" class="list-group-item"><a href="#">Team name</a></button>
-            {{#teams}}
-                <button type="button" class="list-group-item"><img src="{{crestUrl}}" class="team-logo" alt="img"/><a href="#">{{name}}</a></button>
-            {{/teams}}
-        </div>
-    </div>
-</div>
+<table class="table table-striped">
+    <thead class="thead-default">
+    <tr class="fixture">
+        <th>Favourite teams</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#teams}}
+        <tr class="fixture">
+            <td><a href="#/teamPage/{{id}}">{{name}}</a></td>
+            <td class="align-right"><a href="#/unfollow/{{id}}" ><img class="unfollow-btn" src="./img/unfollow.jpg" alt="follow"/></a></td>
+        </tr>
+    {{/teams}}
+    </tbody>
+</table>

@@ -13,7 +13,6 @@ var app = Sammy('#main', function(){
                 fixtures = res.fixtures;
                 dateParser.formatArray(fixtures);
                 dataParser.formatCompetitionID(fixtures);
-                //console.log(fixtures);
                 return templateLoader.get('home');
             })
             .then(function(html){
@@ -34,7 +33,7 @@ var app = Sammy('#main', function(){
                 //console.log(res);
                 name = res.name;
                 img = res.crestUrl;
-                console.log(localStorage.getItem('username'))
+                //console.log(localStorage.getItem('username'))
             });
         connect.get(url)
             .then(function (res) {
@@ -223,20 +222,33 @@ var app = Sammy('#main', function(){
             })
     });
     this.get('#/username', function() {
-
-        userManager.getFollowedTeams(function(teams){
-            console.log(teams);
-        })
+            let teamsArray;
+            let htmlTemp;
+            let promise = new Promise(function(resolve, reject){
+                userManager.getFollowedTeams(function(teams){
+                    teamsArray = {teams:teams};
+                    htmlTemp = templateLoader.get('teams');
+                    console.log(teamsArray);
+                    resolve(htmlTemp);
+                });
+                return promise;
+        }).then(function(html){
+                let template = Handlebars.compile(html);
+                $('#main').html(template(teamsArray));
+            })
     });
     this.get('#/follow/', function(context) {
-        //console.log(context.params.id);
-        //console.log(context.params.name);
         let team = {
             id:context.params.id,
             name:context.params.name
         };
-        console.log(team);
         userManager.followTeam(team);
+    });
+    this.get('#/unfollow/:id', function() {
+        let id = this.params['id'];
+        console.log({id:id});
+        userManager.unfollowTeam({id:id});
+        window.location = '#/username';
     })
 });
 $(function () {
