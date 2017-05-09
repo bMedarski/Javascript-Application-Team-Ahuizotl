@@ -104,6 +104,7 @@ class UsersManager{
                                 teams: teamsArray
                             }).then(function onSuccess(entity) {
                                 //console.log('team followed SUCC')
+                                 window.alert('Team succesfully followed');
                             }).catch(function onError(error) {
                                 //console.log('team followed FAILED')
                             });
