@@ -113,7 +113,14 @@ class UsersManager{
 
     unfollowTeam(team) {
         userManager.getFollowedTeams(function(teamsArray) {
-            var index = teamsArray.indexOf(team);
+            var index = -1;
+            for (var i = 0; i < teamsArray.length; i += 1) {
+                if (team.id == teamsArray[i].id) {    
+                    index = i;
+                    break;
+                }
+            }
+
             if(index >= 0) {
                 userManager.unfollowAllTeams(function(){
                     teamsArray.splice(index, 1);
