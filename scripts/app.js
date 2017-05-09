@@ -6,7 +6,7 @@ import {userManager} from 'user-manager';
 
 var app = Sammy('#main', function(){
     this.get('#/', function () {
-        const url = `http://api.football-data.org/v1/fixtures/?timeFrame=n30`;
+        const url = `https://api.football-data.org/v1/fixtures/?timeFrame=n30`;
         let fixtures;
         connect.get(url)
             .then(function (res) {
@@ -23,8 +23,8 @@ var app = Sammy('#main', function(){
     });
     this.get(`#/teamPage/:id`, function () {
         let id = this.params['id'];
-        const url = `http://api.football-data.org/v1/teams/${id}/fixtures`;
-        const teamUrl = `http://api.football-data.org/v1/teams/${id}`;
+        const url = `https://api.football-data.org/v1/teams/${id}/fixtures`;
+        const teamUrl = `https://api.football-data.org/v1/teams/${id}`;
         let team;
         let name= '';
         let img = '';
@@ -55,8 +55,8 @@ var app = Sammy('#main', function(){
     });
     this.get(`#/teamPlayers/:id`, function () {
         let id = this.params['id'];
-        const url = `http://api.football-data.org/v1/teams/${id}/players`;
-        const teamUrl = `http://api.football-data.org/v1/teams/${id}`;
+        const url = `https://api.football-data.org/v1/teams/${id}/players`;
+        const teamUrl = `https://api.football-data.org/v1/teams/${id}`;
         let team;
         let name= '';
         let img = '';
@@ -85,7 +85,7 @@ var app = Sammy('#main', function(){
     });
     this.get('#/fixture/:id', function () {
         let id = this.params['id'];
-        const url = `http://api.football-data.org/v1/fixtures/${id}`;
+        const url = `https://api.football-data.org/v1/fixtures/${id}`;
         let fixture;
         connect.get(url)
             .then(function (res) {
@@ -104,7 +104,7 @@ var app = Sammy('#main', function(){
     });
     this.get('#/competitionTable/:id', function () {
         let id = this.params['id'];
-        const url = `http://api.football-data.org/v1/competitions/${id}/leagueTable`;
+        const url = `https://api.football-data.org/v1/competitions/${id}/leagueTable`;
         let table,
             teamId;
 
@@ -123,8 +123,8 @@ var app = Sammy('#main', function(){
     });
     this.get('#/competition/:id', function () {
         let id = this.params['id'];
-        let url = `http://api.football-data.org/v1/competitions/${id}/fixtures`;
-        let urlCompetition = `http://api.football-data.org/v1/competitions/${id}`;
+        let url = `https://api.football-data.org/v1/competitions/${id}/fixtures`;
+        let urlCompetition = `https://api.football-data.org/v1/competitions/${id}`;
         let competitions;
         let name= '';
         connect.get(urlCompetition)
