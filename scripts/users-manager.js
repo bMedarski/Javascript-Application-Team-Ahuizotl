@@ -11,12 +11,14 @@ Kinvey.initialize({
 var dataStore = Kinvey.DataStore.collection('FollowedTeams');
 
 class UsersManager{
-    constructor() {}
+    constructor() {
+    }
+
     register(username, password1, password2, successCallback, failCallback) {
         if (Validator.isValidUsername(username) &&
             Validator.isValidPassword(password1) &&
             Validator.stringsMatch(password1, password2)) {
-            this.logout(function () {
+            userManager.logout(function () {
                 var user = new Kinvey.User();
                 var promise = user.signup({
                     username: username,
@@ -28,15 +30,15 @@ class UsersManager{
                     failCallback();
                 });
             });
-        }else
-        {
+        }
+        else {
             failCallback();
         }
     };
 
     login(username, password, successCallback, failCallback) {
         if (Validator.isValidUsername(username) && Validator.isValidPassword(password)) {
-            this.logout(function(){
+            userManager.logout(function(){
                 var user = new Kinvey.User();
                 var promise = user.login({
                     username: username,
@@ -71,45 +73,47 @@ class UsersManager{
         var entities = [];
         stream.subscribe(function onNext(e) {
             entities = e;
-            console.log(entities);
         }, function onError(error) {
-            // ...
         }, function onComplete() {
             try {
-
-                console.log('success');
-                callback(entities[0].teams);
+                if (entities.length > 0){             
+                    callback(entities[0].teams);
+                }
+                else {                              
+                    var emptyArray = [];
+                    callback(emptyArray);
+                }
             }
-            catch(e) {
+            catch(e) {        
                 var emptyTeamsArray = [];
                 callback(emptyTeamsArray);
             }
         });
     };
 
-    followTeam(teamName) {
-        this.getFollowedTeams(function(teamsArray) {
-            if(teamsArray.indexOf(teamName) < 0) {
-                this.unfollowAllTeams(function(){
-                    teamsArray.push(teamName);
-                    var promise = dataStore.save({
-                        username: localStorage.getItem('username'),
-                        teams: teamsArray
-                    }).then(function onSuccess(entity) {
-                        console.log('team followed SUCC')
-                    }).catch(function onError(error) {
-                        //console.log('team followed FAILED')
-                    });
+    followTeam(team) {
+        userManager.getFollowedTeams(function(teamsArray) {
+            if(teamsArray.indexOf(team) < 0) {
+            userManager.unfollowAllTeams(function(){
+                teamsArray.push(team);
+                var promise = dataStore.save({
+                    username: localStorage.getItem('username'),
+                    teams: teamsArray
+                }).then(function onSuccess(entity) {
+                    //console.log('team followed SUCC')
+                }).catch(function onError(error) {
+                    //console.log('team followed FAILED')
                 });
+            });
             }
         });
     };
 
-    unfollowTeam(teamName) {
-        UsersManager.getFollowedTeams(function(teamsArray) {
-            var index = teamsArray.indexOf(teamName);
+    unfollowTeam(team) {
+        userManager.getFollowedTeams(function(teamsArray) {
+            var index = teamsArray.indexOf(team);
             if(index >= 0) {
-                UsersManager.unfollowAllTeams(function(){
+                userManager.unfollowAllTeams(function(){
                     teamsArray.splice(index, 1);
                     var promise = dataStore.save({
                         username: localStorage.getItem('username'),
@@ -135,5 +139,6 @@ class UsersManager{
         });
     }
 }
-let userManager = new UsersManager();
+
+const userManager = new UsersManager();
 export {userManager};
